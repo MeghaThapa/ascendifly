@@ -107,6 +107,7 @@ class GetQuoteController extends Controller
         $template = EmailTemplate::where('slug', 'quote-placed')->first();
         $setting = Setting::where('status', '1')->first();
 
+
         // if(isset($template) && isset($setting)){
 
         //     // Passing data to email template
@@ -127,7 +128,6 @@ class GetQuoteController extends Controller
         // }
 
         if(isset($template) && isset($setting)){
-
             // Passing data to email template
             $data['row'] = $quote;
             $data['id_type'] = __('email.quote_id');
@@ -141,8 +141,8 @@ class GetQuoteController extends Controller
             $data['message'] = $template->description;
 
             // Send Mail
-           // return   $data;
-            Mail::to($data['email'])->send(new NotifyAdmin($data));
+
+            Mail::to($data['email'])->send(new NotifyAdmin($data,$setting ));
 
         }
 

@@ -149,6 +149,10 @@ Route::middleware(['auth:web', 'XSS'])->name('admin.')->namespace('Admin')->pref
     // Client Routes
     Route::resource('client', 'ClientController');
 
+    // Partner Routes
+   //  Route::get('partner', 'PartnerController@index')->name('partner.index');
+    Route::resource('partner', 'PartnerController');
+
     // Testimonial Routes
     Route::resource('testimonial', 'TestimonialController');
 

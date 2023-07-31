@@ -12,15 +12,17 @@ class NotifyAdmin extends Mailable
     use Queueable, SerializesModels;
 
     public $data;
+    public $setting;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($data,$setting)
     {
         $this->data = $data;
+        $this->setting =$setting;
     }
 
     /**
@@ -30,8 +32,11 @@ class NotifyAdmin extends Mailable
      */
     public function build()
     {
-        //  dd ($this->data);
-        return $this->from($this->data['from'], $this->data['sender'])->subject($this->data['subject'])->view('emails.email')->with('data',$this->data);
+       // return $this->from($this->data['from'], $this->data['sender'])->subject($this->data['subject'])->view('emails.email');
+        return $this->to($this->data['from'])
+        ->subject($this->data['subject'])
+        ->view('emails.email')
+        ->with(['data'=>$this->data,'setting'=>$this->setting]);
 
     }
 }

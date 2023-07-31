@@ -4,62 +4,35 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Partner;
 use Illuminate\Support\Str;
-use App\Models\Client;
 use Toastr;
 use Image;
 use File;
 
-class ClientController extends Controller
+class PartnerController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+     public function __construct()
     {
         // Module Data
-        $this->title = trans_choice('clients', 1);
-        $this->route = 'admin.client';
-        $this->view = 'admin.client';
-        $this->path = 'client';
+        $this->title = trans_choice('Partners', 1);
+        $this->route = 'admin.partner';
+        $this->view = 'admin.partner';
+        $this->path = 'partner';
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+     public function index()
     {
-        //
         $data['title'] = $this->title;
         $data['route'] = $this->route;
         $data['view'] = $this->view;
         $data['path'] = $this->path;
 
-        $data['rows'] = Client::orderBy('id', 'desc')->get();
-        return view($this->view.'.index', $data);
+        $data['rows'] = Partner::orderBy('id', 'desc')->get();
+        return view('admin.partner.index',$data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+     public function store(Request $request)
     {
         // Field Validation
         $request->validate([
@@ -92,13 +65,13 @@ class ClientController extends Controller
 
 
         // Insert Data
-        $client = new Client;
-        $client->title = $request->title;
-        $client->slug = Str::slug($request->title, '-');
-        $client->description = $request->description;
-        $client->image_path = $fileNameToStore;
-        $client->link = $request->link;
-        $client->save();
+        $partner = new Partner;
+        $partner->title = $request->title;
+        $partner->slug = Str::slug($request->title, '-');
+        $partner->description = $request->description;
+        $partner->image_path = $fileNameToStore;
+        $partner->link = $request->link;
+        $partner->save();
 
 
         Toastr::success(__('dashboard.created_successfully'), __('dashboard.success'));
@@ -106,40 +79,16 @@ class ClientController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Client $client)
+     public function edit(Partner $partner)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Client $client)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Client $client)
+    public function update(Request $request, Partner $partner)
     {
         // Field Validation
         $request->validate([
-            'title' => 'required|max:191|unique:clients,title,'.$client->id,
+            'title' => 'required|max:191|unique:clients,title,'.$partner->id,
             'image' => 'nullable|image',
         ]);
 
@@ -147,7 +96,7 @@ class ClientController extends Controller
         // image upload, fit and store inside public folder
         if($request->hasFile('image')){
 
-            $file_path = public_path('uploads/'.$this->path.'/'.$client->image_path);
+            $file_path = public_path('uploads/'.$this->path.'/'.$partner->image_path);
             if(File::isFile($file_path)){
                 File::delete($file_path);
             }
@@ -170,40 +119,32 @@ class ClientController extends Controller
         }
         else{
 
-            $fileNameToStore = $client->image_path;
+            $fileNameToStore = NULL;
         }
 
 
         // Update Data
-        $client->title = $request->title;
-        $client->slug = Str::slug($request->title, '-');
-        $client->description = $request->description;
-        $client->image_path = $fileNameToStore;
-        $client->link = $request->link;
-        $client->status = $request->status;
-        $client->save();
-
-
+        $partner->title = $request->title;
+        $partner->slug = Str::slug($request->title, '-');
+        $partner->description = $request->description;
+        $partner->image_path = $fileNameToStore;
+        $partner->link = $request->link;
+        $partner->status = $request->status;
+        $partner->save();
         Toastr::success(__('dashboard.updated_successfully'), __('dashboard.success'));
 
         return redirect()->back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Client $client)
+     public function destroy(Partner $partner)
     {
         // Delete Data
-        $image_path = public_path('uploads/'.$this->path.'/'.$client->image_path);
+        $image_path = public_path('uploads/'.$this->path.'/'.$partner->image_path);
         if(File::isFile($image_path)){
             File::delete($image_path);
         }
 
-        $client->delete();
+        $partner->delete();
 
         Toastr::success(__('dashboard.deleted_successfully'), __('dashboard.success'));
 
