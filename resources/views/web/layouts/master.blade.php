@@ -172,8 +172,6 @@
                                 <li class="{{ Request::path() == '/' ? 'current' : '' }}"><a
                                         href="{{ route('home') }}">{{ $page_home->title }}</a></li>
                             @endif
-
-
                             <li>
                                 <div class="dropdown">
                                     <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton"

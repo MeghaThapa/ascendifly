@@ -30,6 +30,8 @@ class NotifyAdmin extends Mailable
      */
     public function build()
     {
-        return $this->from($this->data['from'], $this->data['sender'])->subject($this->data['subject'])->view('emails.email');
+        //  dd ($this->data);
+        return $this->from($this->data['from'], $this->data['sender'])->subject($this->data['subject'])->view('emails.email')->with('data',$this->data);
+
     }
 }

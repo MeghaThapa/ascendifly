@@ -24,7 +24,7 @@ class GetQuoteController extends Controller
      */
     public function index()
     {
-        // Services                                
+        // Services
         $data['services'] = Service::where('status', '1')
                             ->orderBy('id', 'asc')
                             ->get();
@@ -57,11 +57,11 @@ class GetQuoteController extends Controller
         ]);
 
 
-        // file upload, fit and store inside public folder 
+        // file upload, fit and store inside public folder
         if($request->hasFile('file_path')){
             //Upload New Image
             $filenameWithExt = $request->file('file_path')->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME); 
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('file_path')->getClientOriginalExtension();
             $fileNameToStore = $filename.'_'.time().'.'.$extension;
 
@@ -107,24 +107,24 @@ class GetQuoteController extends Controller
         $template = EmailTemplate::where('slug', 'quote-placed')->first();
         $setting = Setting::where('status', '1')->first();
 
-        if(isset($template) && isset($setting)){
+        // if(isset($template) && isset($setting)){
 
-            // Passing data to email template
-            $data['row'] = $quote;
-            $data['id_type'] = __('email.quote_id');
-            $data['order_id'] = $quote->id;
+        //     // Passing data to email template
+        //     $data['row'] = $quote;
+        //     $data['id_type'] = __('email.quote_id');
+        //     $data['order_id'] = $quote->id;
 
-            // Mail Information
-            $data['subject'] = $template->title;
-            $data['email'] = $quote->email;
-            $data['from'] = $setting->contact_mail;
-            $data['sender'] = $setting->title;
-            $data['message'] = $template->description;
+        //     // Mail Information
+        //     $data['subject'] = $template->title;
+        //     $data['email'] = $quote->email;
+        //     $data['from'] = $setting->contact_mail;
+        //     $data['sender'] = $setting->title;
+        //     $data['message'] = $template->description;
 
-            // Send Mail
-            Mail::to($data['email'])->send(new NotifyCustomer($data));
+        //     // Send Mail
+        //     Mail::to($data['email'])->send(new NotifyCustomer($data));
 
-        }
+        // }
 
         if(isset($template) && isset($setting)){
 
@@ -141,6 +141,7 @@ class GetQuoteController extends Controller
             $data['message'] = $template->description;
 
             // Send Mail
+           // return   $data;
             Mail::to($data['email'])->send(new NotifyAdmin($data));
 
         }

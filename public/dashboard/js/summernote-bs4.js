@@ -7472,7 +7472,14 @@
       };
       return HintPopover;
   }());
+ var customFontPath = "/fonts/addedFonts/Gotham Bold Regular.ttf";
 
+//       $('#summernote').summernote({
+//     fontNames: fontNames,
+//     fontNamesIgnoreCheck: ['Gotham Bold Regular'], // Add the custom font name here
+//     fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24', '36'],
+//     // Other options...
+//   });
   $$1.summernote = $$1.extend($$1.summernote, {
       version: '0.8.12',
       plugins: {},
@@ -7564,7 +7571,7 @@
           fontNames: [
               'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New',
               'Helvetica Neue', 'Helvetica', 'Impact', 'Lucida Grande',
-              'Tahoma', 'Times New Roman', 'Verdana',
+              'Tahoma', 'Times New Roman', 'Verdana','Gotham Bold Regular',
           ],
           fontNamesIgnoreCheck: [],
           fontSizes: ['8', '9', '10', '11', '12', '14', '18', '24', '36'],

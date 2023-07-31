@@ -15,46 +15,46 @@ Route::middleware(['XSS'])->namespace('Web')->group(function () {
 
     // Home Route
     Route::get('/', 'HomeController@index')->name('home');
-    
+
     // Sales-Audit Route
     Route::get('/audit', 'HomeController@audit')->name('web.salesAudit');
-    
+
     // Sales-Consulting Route
     Route::get('/sales-consulting', 'HomeController@consulting')->name('web.salesConsulting');
 
     // Sales-Recruitment Route
     Route::get('/sales-recruitment', 'HomeController@recruitment')->name('web.salesRecruitment');
-    
+
     // Sales-Research Route
     Route::get('/sales-research', 'HomeController@research')->name('web.salesResearch');
-    
+
     // Sales-Training Route
     Route::get('/sales-training', 'HomeController@training')->name('web.salesTraining');
-    
+
     // Partners Route
     Route::get('/partners', function() {
         return view('web.ourPartners');
     });
-    
+
     // Clients Route
     Route::get('/clients', function() {
         return view('web.ourClients');
     });
-    
+
     // Sales-Personality Route
     Route::get('/sales-personality', function() {
         return view('web.salesPersonality');
     });
-    
+
     // Meet Team Route
     Route::get('/team', 'HomeController@team')->name('web.ourTeam');
-        
+
      // Partners Route
     Route::get('/partners', 'HomeController@partner')->name('web.ourPartners');
-    
+
     // Gallery Route
     Route::get('/gallery', 'HomeController@gallery')->name('web.gallery');
-    
+
     // Pages Route
     Route::get('/page/{slug}', 'HomeController@page')->name('page.single');
 
@@ -142,16 +142,16 @@ Route::middleware(['auth:web', 'XSS'])->name('admin.')->namespace('Admin')->pref
     // FAQ Routes
 	Route::resource('faq-category', 'FaqCategoryController');
 	Route::resource('faq', 'FaqController');
-    
+
     // Slider Routes
     Route::resource('slider', 'SliderController');
-    
+
     // Client Routes
     Route::resource('client', 'ClientController');
 
     // Testimonial Routes
     Route::resource('testimonial', 'TestimonialController');
-    
+
     // Work Process Routes
     Route::resource('work-process', 'WorkProcessController');
 
@@ -175,7 +175,7 @@ Route::middleware(['auth:web', 'XSS'])->name('admin.')->namespace('Admin')->pref
 
     // Page Setup Routes
     Route::resource('page-setup', 'PageSetupController');
-    
+
     // Section Routes
     Route::resource('section', 'SectionController');
 

@@ -4,7 +4,6 @@
     $header = \App\Models\PageSetup::page('home');
 @endphp
 @if (isset($header))
-
     @section('title', $header->meta_title)
 
     @section('top_meta_tags')

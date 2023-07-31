@@ -44,10 +44,10 @@ class GetQuoteController extends Controller
         $data['route'] = $this->route;
         $data['view'] = $this->view;
         $data['path'] = $this->path;
-        
+
         $data['rows'] = GetQuote::orderBy('id', 'desc')->limit(500)->get();
 
-        return view($this->view.'.index', $data);
+         return view($this->view.'.index', $data);
     }
 
     /**
@@ -101,7 +101,7 @@ class GetQuoteController extends Controller
         if(File::isFile($attach)){
             File::delete($attach);
         }
-        
+
         $getQuote->services()->detach();
         $getQuote->delete();
 
@@ -223,11 +223,11 @@ class GetQuoteController extends Controller
         ]);
 
 
-        // file upload, fit and store inside public folder 
+        // file upload, fit and store inside public folder
         if($request->hasFile('attach')){
             //Upload New Image
             $filenameWithExt = $request->file('attach')->getClientOriginalName();
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME); 
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
             $extension = $request->file('attach')->getClientOriginalExtension();
             $fileNameToStore = $filename.'_'.time().'.'.$extension;
 
@@ -285,7 +285,7 @@ class GetQuoteController extends Controller
             $quote->amount = $request->total_amount;
             $quote->save();
         }
-        
+
         $setting = Setting::where('status', '1')->first();
 
         // Passing data to email template

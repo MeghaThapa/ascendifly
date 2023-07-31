@@ -159,7 +159,7 @@ $(document).ready(function() {
             //["view", ["fullscreen", "codeview", "help"]],
             //['height', ['height']]
         ],
-        
+
       // Clean text formatting
       callbacks: {
         onPaste: function (e) {
@@ -209,11 +209,13 @@ $(document).ready(function() {
 
     });
 
+    //media 2
+
     // Code
     $('.codeEditor').summernote({
       height: 600,
       toolbar: [
-            
+
         ],
 
       // Code View

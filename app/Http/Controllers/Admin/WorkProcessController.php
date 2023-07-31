@@ -31,12 +31,11 @@ class WorkProcessController extends Controller
      */
     public function index()
     {
-        //
         $data['title'] = $this->title;
         $data['route'] = $this->route;
         $data['view'] = $this->view;
         $data['path'] = $this->path;
-        
+
         $data['rows'] = WorkProcess::orderBy('id', 'asc')->get();
 
         return view($this->view.'.index', $data);

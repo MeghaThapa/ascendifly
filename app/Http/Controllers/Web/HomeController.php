@@ -40,38 +40,38 @@ class HomeController extends Controller
         $data['about'] = About::where('status', '1')
                             ->first();
 
-        // Counters                                
+        // Counters
         $data['counters'] = Counter::where('status', '1')
                             ->orderBy('id', 'asc')
                             ->get();
 
-        // Services                                
+        // Services
         $data['services'] = Service::where('status', '1')
                             ->orderBy('id', 'asc')
                             ->get();
 
-        // Portfolio Categories                                
+        // Portfolio Categories
         $data['portfolio_categories'] = PortfolioCategory::where('status', '1')
                             ->orderBy('id', 'asc')
                             ->get();
 
-        // Portfolios                                
+        // Portfolios
         $data['portfolios'] = Portfolio::where('status', '1')
                             ->orderBy('id', 'desc')
                             ->take(9)
                             ->get();
 
-        // Members                                
+        // Members
         $data['members'] = Member::where('status', '1')
                             ->orderBy('id', 'asc')
                             ->get();
 
-        // Testimonials                                
+        // Testimonials
         $data['testimonials'] = Testimonial::where('status', '1')
                             ->orderBy('id', 'desc')
                             ->get();
 
-        // Articles                                
+        // Articles
         $data['articles'] = Article::where('status', '1')
                             ->orderBy('id', 'desc')
                             ->take(3)
@@ -89,7 +89,7 @@ class HomeController extends Controller
 
         return view('web.index', $data);
     }
-    
+
     // Partners Start
     public function partner()
     {
@@ -97,86 +97,95 @@ class HomeController extends Controller
         $data['clients'] = Client::where('status', '1')
                             ->orderBy('id', 'desc')
                             ->get();
-                            
+
         return view('web.ourPartners', $data);
     }
     // Partners End
-    
+
     // Team Start
     public function team()
     {
-        // Members                                
+        // Members
         $data['members'] = Member::where('status', '1')
                             ->orderBy('id', 'asc')
                             ->get();
-                            
+
         return view('web.ourTeam', $data);
     }
     // Team End
-    
-    
+
+
     // Processes
-    public function audit()
+    // public function audit()
+    // {
+    //     $data['processes'] = WorkProcess::where('status', '1')
+    //                         ->orderBy('id', 'asc')
+    //                         ->get();
+    //     return $data;
+    //     return view('web.salesAudit', $data);
+    // }
+        public function audit()
     {
         $data['processes'] = WorkProcess::where('status', '1')
                             ->orderBy('id', 'asc')
                             ->get();
-        
+        //return $data;
         return view('web.salesAudit', $data);
     }
-    
+
+
     public function consulting()
     {
         $data['processes'] = WorkProcess::where('status', '1')
                             ->orderBy('id', 'asc')
                             ->get();
-        
+
         return view('web.salesConsulting', $data);
-    }   
-    
+    }
+
     public function recruitment()
     {
         $data['processes'] = WorkProcess::where('status', '1')
                             ->orderBy('id', 'asc')
                             ->get();
-        
+
         return view('web.salesRecruitment', $data);
     }
-    
+
     public function research()
     {
         $data['processes'] = WorkProcess::where('status', '1')
                             ->orderBy('id', 'asc')
                             ->get();
-        
+
         return view('web.salesResearch', $data);
     }
-        
+
     public function training()
     {
         $data['processes'] = WorkProcess::where('status', '1')
                             ->orderBy('id', 'asc')
                             ->get();
-        
+
         return view('web.salesTraining', $data);
     }
     // Processes End
-    
-    
+
+
     // Gallery Start
     public function gallery()
     {
-        // Portfolio Categories                                
+        // Portfolio Categories
         $data['portfolio_categories'] = PortfolioCategory::where('status', '1')
                             ->orderBy('id', 'asc')
                             ->get();
 
-        // Portfolios                                
+        // Portfolios
         $data['portfolios'] = Portfolio::where('status', '1')
                             ->orderBy('id', 'desc')
                             ->take(9)
                             ->get();
-                            
+
         return view('web.gallery', $data);
     }
     // Gallery End
@@ -197,7 +206,7 @@ class HomeController extends Controller
         $subscriber = Subscriber::where('email', $request->email)->first();
 
         if(!isset($subscriber)){
-            Subscriber::create($request->all());             
+            Subscriber::create($request->all());
         }
 
         // Notify to User
@@ -219,7 +228,7 @@ class HomeController extends Controller
             Mail::to($data['email'])->send(new Subscription($data));
 
         }
-        
+
         return redirect()->back();
     }
 
